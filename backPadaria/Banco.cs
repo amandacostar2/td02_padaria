@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,20 +25,63 @@ namespace backPadaria
 
                     Console.WriteLine("Conexão bem sucedida");
 
-                    using (var command = new MySqlCommand("SELECT VERSION();", connection)){
+                    using (var command = new MySqlCommand("SELECT VERSION();", connection))
+                    {
                         string? version = command.ExecuteScalar()?.ToString();
                         Console.WriteLine($"Versão do MariaDB {version}");
                     }
 
 
 
-                }catch (MySqlException ex)
+                }
+                catch (MySqlException ex)
                 {
                     Console.WriteLine("Erro ao conectar no banco de dados");
                     Console.WriteLine(ex.Message);
                 }
+
+
             }
         }
 
+
+        //Declaração do método: público e estático, retorna um número inteiro (linha afetadas)
+        // e recebe um objeto MySqlCommand com a instrução SQL já configurada como parâmetro.
+        public static int executarComando(MySqlCommand command)
+        {
+            /* O bloco 'using' garante que a cpnexão será automaticamente fechada e liberada
+             da memória ao final do bloco, mesmo que ocorram erros no meio do processo.
+
+               Criar a conexão utilizando a variavel de ambiente.
+            */
+            using (var conexao = new MySqlConnection(stringDeConexao))
+            {
+                // Vinculação: Diz ao comando SQL em qual conexão ele deve ser executado.
+                command.Connection = conexao;
+
+                // Tratamento de erros: Inicia um bloco de tentativa para proteger o programa de falhas abruptas.
+                try
+                {
+                    //Abertura da conexão: Estabelece efetivamente a comunicação com o servidor MySQL.
+                    conexao.Open();
+
+                    // Execução: O ExecuteNonQuery dispara comandos de ação (INSERT, UPDATE, DELETE).
+                    // Ele não retorna registros, mas sim o número inteiro de linhas que foram alteradas,
+                    // e o 'return' devolve esse número para quem chamou o método.
+
+                    return command.ExecuteNonQuery();
+
+                }
+                catch (MySqlException ex)
+                {
+                    Console.WriteLine($"Erro de Banco de dados {ex.Message}");
+
+                    return -1;
+                }
+
+
+
+            }
+        }
     }
 }
