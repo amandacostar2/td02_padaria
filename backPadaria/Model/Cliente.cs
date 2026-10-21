@@ -92,7 +92,7 @@ namespace backPadaria.Model
 
             using (var cmd = new MySqlCommand(sql))
             {
-                cmd.Parameters.AddWithValue("@id", cliente.id);
+                cmd.Parameters.AddWithValue("@id", cliente.Id);
 
                 return Banco.executarComando(cmd);
             }
@@ -108,7 +108,8 @@ namespace backPadaria.Model
             {
                 // Executa a leitura. O bloco 'using' aqui é FUNDAMENTAL para garantir que o 
                 // reader seja fechado no final, o que por sua vez fecha a conexão com o bloco.
-                using (MySqlDataReader reader = Banco.executarComRetornoDeDados(cmd)) {
+                using (MySqlDataReader reader = Banco.executarComRetornoDeDados(cmd))
+                {
 
 
                     // O while vai rodar uma vez para CADA linha que existir na tabela Cliente
@@ -117,10 +118,10 @@ namespace backPadaria.Model
 
                         // Extrair os dados da linha atual
                         int id = reader.GetInt32("Id");
-                        string nome = validarCampo(reader ["Nome"]);
-                        string cpf = validarCampo(reader ["CPF"]);
-                        string telefone = validarCampo(reader ["Telefone"]);
-                        string endereco = validarCampo(reader ["endereco"]);
+                        string nome = validarCampo(reader["Nome"]);
+                        string cpf = validarCampo(reader["CPF"]);
+                        string telefone = validarCampo(reader["Telefone"]);
+                        string endereco = validarCampo(reader["endereco"]);
                         int pontos = reader.GetInt32("Pontos");
 
 
@@ -137,17 +138,91 @@ namespace backPadaria.Model
             }
         }
 
+        public static Cliente? listarPorId(int id)
+        {
+            string sql = "SELECT * FROM `Cliente` WHERE `id` = @Id";
+
+            using (var cmd = new MySqlCommand(sql))
+            {
+                cmd.Parameters.AddWithValue("@Id", id);
+
+                MySqlDataReader reader = Banco.executarComRetornoDeDados(cmd);
+
+                Cliente cliente = null;
+
+                while (reader.Read())
+                {
+                    // Extrair os dados da linha atual
+                    int idBanco = reader.GetInt32("Id");
+
+                    string nome = validarCampo(reader["Nome"]);
+                    string cpf = validarCampo(reader["CPF"]);
+                    string telefone = validarCampo(reader["Telefone"]);
+                    string endereco = validarCampo(reader["Endereco"]);
+
+                    int pontos = reader.GetInt32("Pontos");
+
+                    // Criar o objeto Cliente com os dados extraídos
+                    cliente = new Cliente(idBanco, nome, cpf, telefone, endereco, pontos);
+                }
+
+                return cliente;
+            }
+        }
+
+
+        public static int Atualizar(Cliente cliente)
+        {
+            string sql = "UPDATE `Cliente` SET `Nome` = @Nome, `Cpf` = @CPF, `Telefone` = @Telefone, `Endereco` = @Endereco, `Pontos` = @Pontos WHERE `Id` = @Id";
+
+            using (var cmd = new MySqlCommand(sql))
+            {
+                //Vinculação de parâmetros; Protege contra SQL Injection e organiza os dados
+                cmd.Parameters.AddWithValue("@Nome", cliente.Nome);
+                cmd.Parameters.AddWithValue("@CPF", cliente.Cpf);
+                cmd.Parameters.AddWithValue("@Telefone", cliente.Telefone);
+                cmd.Parameters.AddWithValue("@Endereco", cliente.Endereco);
+                cmd.Parameters.AddWithValue("@Pontos", cliente.Pontos);
+
+                //A chave de busca: Quem será atualizado?
+                cmd.Parameters.AddWithValue("@Id", cliente.id);
+
+                //Execução: O UPDATE também é uma instrução de ação (como INSERT e DELETE).
+                //Ele vai retornar 1 (se encontrou o ID e atualizou com sucesso) ou 0 (se o ID não existia).
+                return Banco.executarComando(cmd);
+            }
+        }
+
+
+
         private static string validarCampo(object campo)
         {
             if (campo == DBNull.Value || campo == null)
             {
                 return "";
             }
-            else {
+            else
+            {
                 return campo.ToString();
             }
         }
-     }
+
+
+        internal static int Excluir(int idExcluir)
+        {
+            Cliente cliente = new Cliente(idExcluir);
+
+            return Deletar(cliente);
+        }
+
+        internal static Cliente BuscaPorId(int idPontuacao)
+        {
+            return listarPorId(idPontuacao);
+        }
+
+    }
 }
+
+        
 
 
