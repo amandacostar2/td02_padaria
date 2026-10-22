@@ -5,6 +5,8 @@ namespace backPadaria
 {
     internal class Program
     {
+        private static int resultado;
+
         static void Main(string[] args)
         {
 
@@ -88,109 +90,200 @@ namespace backPadaria
             //}
 
 
-            ClienteService.MenuCliente();
+
+            //ClienteService.MenuCliente();
 
 
 
-            Cliente? meuCliente = Cliente.listarPorId(4);
+            //Cliente? meuCliente = Cliente.listarPorId(4);
 
-            if(meuCliente != null)
+            //if(meuCliente != null)
+            //{
+            //    meuCliente.Endereco = "Rua Barão de Alagoas, 171";
+            //    meuCliente.Telefone = "1194320-1840";
+
+            //    int resultado = Cliente.Atualizar(meuCliente);
+
+            //    if (resultado > 0)
+            //    {
+            //        Console.WriteLine("Cliente atualizado com sucesso");
+            //    }
+
+
+           
+
+            //// REFATORAÇÃO //
+            //Funcionario funcionario = new Funcionario(
+            //    nome: "Agatha",
+            //    cpf: "847.293.615-70",
+            //    cargo: "Gerente"
+            //);
+
+            //int resultadoFuncionario = Funcionario.Inserir(funcionario);
+
+            //if (resultadoFuncionario > 0)
+            //{
+            //    Console.WriteLine("Funcionário cadastrado com sucesso!");
+            //}
+
+            //Console.WriteLine("-------------------");
+
+            //// Listar Todos os Funcionários //
+            //List<Funcionario> funcionarios = Funcionario.ListarTodos();
+
+            //    foreach (Funcionario funcionarioLista in funcionarios)
+            //    {
+            //        Console.WriteLine("-------------------");
+
+            //        Console.WriteLine($"ID: {funcionarioLista.Id}");
+            //        Console.WriteLine($"Nome: {funcionarioLista.Nome}");
+            //        Console.WriteLine($"CPF: {funcionarioLista.Cpf}");
+            //        Console.WriteLine($"Cargo: {funcionarioLista.Cargo}");
+
+            //        Console.WriteLine("-------------------");
+            //    }
+
+            //Console.WriteLine("-------------------");
+
+
+            //// Buscar por ID //
+            //Funcionario? func = Funcionario.ListarPorId(21);
+
+            //    if (func != null)
+            //    {
+            //        Console.WriteLine($"ID: {func.Id}");
+            //        Console.WriteLine($"Nome: {func.Nome}");
+            //        Console.WriteLine($"CPF: {func.Cpf}");
+            //        Console.WriteLine($"Cargo: {func.Cargo}");
+
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("Funcionario não encontrado!");
+            //    } 
+
+            //Console.WriteLine("-------------------");
+
+
+            //// Atualizar //
+            //func = Funcionario.ListarPorId(1);
+
+            //    if (func != null)
+            //    {
+            //        func.Cargo = "Supervisor";
+
+            //        int resultadoAtualizacao = Funcionario.Atualizar(func);
+
+            //        if (resultado > 0)
+            //        {
+            //            Console.WriteLine("Funcionario atualizado com sucesso!");
+            //        }
+            //    }
+
+            //Console.WriteLine("-------------------");
+
+
+
+            //// Deletar//
+            //Funcionario funcionarioParaExcluir = new Funcionario(21);
+
+
+
+            //    if (Funcionario.Deletar(funcionarioParaExcluir) > 0)
+            //    {
+            //        Console.WriteLine("Funcionario excluído com sucesso!");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("Funcionario não encontrado!");
+            //    }
+
+
+            //Console.WriteLine("-------------------");
+
+
+
+
+
+
+
+
+            // REFATORAÇÃO //
+           if (resultado > 0)
+                {
+                    Console.WriteLine("Marca cadastrada com sucesso!");
+                }
+
+            Console.WriteLine("-------------------");
+
+            // Listar Todas as Marcas //
+            List<Marca> marcas = Marca.ListarTodos();
+
+                foreach (Marca marcaLista in marcas)
+                {
+                    Console.WriteLine("-------------------");
+
+                    Console.WriteLine($"ID: {marcaLista.Id}");
+                    Console.WriteLine($"Nome: {marcaLista.Nome}");
+
+                    Console.WriteLine($"Telefone: {marcaLista.Telefone}");
+             
+
+                    Console.WriteLine("-------------------");
+                }
+
+            Console.WriteLine("-------------------");
+
+            // Buscar por ID //
+            Marca? marc = Marca.ListarPorId(10);
+
+                if (marc != null)
+                {
+                    Console.WriteLine($"ID: {marc.Id}");
+                    Console.WriteLine($"Nome: {marc.Nome}");
+                    Console.WriteLine($"Telefone: {marc.Telefone}");
+                }
+                else
+                {
+                    Console.WriteLine("Marca não encontrada!");
+                }
+
+            Console.WriteLine("-------------------");
+
+            // Atualizar //
+            marc = Marca.ListarPorId(10);
+
+                if (marc != null)
+                {
+                    marc.Nome = "Nestle";
+
+                    int resultadoAtualizacao = Marca.Atualizar(marc);
+                
+                if (resultadoAtualizacao > 0)
+                {
+                    Console.WriteLine("Marca atualizada com sucesso!");
+                }
+              }
+
+            Console.WriteLine("-------------------");
+
+            // Deletar//
+            Marca marcaParaExcluir = new Marca(10);
+
+            if (Marca.Deletar(marcaParaExcluir) > 0)
             {
-                meuCliente.Endereco = "Rua Barão de Alagoas, 171";
-                meuCliente.Telefone = "1194320-1840";
-
-                int resultado = Cliente.Atualizar(meuCliente);
-
-                if (resultado > 0)
-                {
-                    Console.WriteLine("Cliente atualizado com sucesso");
-                }
-
-
-
-                //REFATORAÇÃO //
-                Funcionario funcionario = new Funcionario(
-                    nome: "Amanda",
-                    cpf: "99999999999",
-                    cargo: "Gerente"
-                    );
-
-                int resultadoFuncionario = Funcionario.Inserir(funcionario);
-
-                if (resultado > 0)
-                {
-                    Console.WriteLine("Funcionário cadastrado com sucesso!");
-                }
-
-
-                // Listar Todos os Funcionários//
-                List<Funcionario> funcionarios = Funcionario.ListarTodos();
-
-                foreach (Funcionario funcionarioLista in funcionarios)
-                {
-                    Console.WriteLine("-------------------");
-
-                    Console.WriteLine($"ID: {funcionarioLista.Id}");
-                    Console.WriteLine($"Nome: {funcionarioLista.Nome}");
-                    Console.WriteLine($"CPF: {funcionarioLista.Cpf}");
-                    Console.WriteLine($"Cargo: {funcionarioLista.Cargo}");
-
-                    Console.WriteLine("-------------------");
-                }
-
-                // Buscar por ID//
-                Funcionario? func = Funcionario.ListarPorId(1);
-
-                if (func != null)
-                {
-                    Console.WriteLine($"ID: {func.Id}");
-                    Console.WriteLine($"Nome: {func.Nome}");
-                    Console.WriteLine($"CPF: {func.Cpf}");
-                    Console.WriteLine($"Cargo: {func.Cargo}");
-                }
-                else
-                {
-                    Console.WriteLine("Funcionario não encontrado!");
-                }
-
-                // Atualizar//
-                func = Funcionario.ListarPorId(1);
-
-                if (func != null)
-                {
-                    func.Cargo = "Supervisor";
-
-                    int resultadoAtualizacao = Funcionario.Atualizar(func);
-
-                    if (resultado > 0)
-                    {
-                        Console.WriteLine("Funcionario atualizado com sucesso!");
-                    }
-                }
-
-
-                // Deletar//
-                Funcionario funcionarioParaExcluir = new Funcionario(1);
-
-                if (Funcionario.Deletar(funcionarioParaExcluir) > 0)
-                {
-                    Console.WriteLine("Funcionario excluído com sucesso!");
-                }
-                else
-                {
-                    Console.WriteLine("Funcionario não encontrado!");
-                }
-
-
-
-
+                Console.WriteLine("Marca excluída com sucesso!");
             }
+            else
+            {
+                Console.WriteLine("Marca não encontrada!");
+            }
+
+            FuncionarioServices.MenuFuncionario();
+
+
+
+            //FuncionarioServices.MenuFuncionario();
         }
-         }
     }
-
-
-
-
-
-
+ }

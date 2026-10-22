@@ -220,6 +220,10 @@ namespace backPadaria.Model
             return listarPorId(idPontuacao);
         }
 
+        internal static Cliente ListarPorId(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
