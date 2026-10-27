@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySqlConnector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,57 @@ namespace backPadaria.Model
 {
     internal class ItemCompra
     {
+        private int id;
+        private int compraId;
+        private int produtoId;
+        private int quantidade;
+        private decimal precoCobrado;
+
+        public ItemCompra(int produtoId, int quantidade, decimal precoCobrado)
+        {
+            if (produtoId <= 0) throw new ArgumentOutOfRangeException("Produto Inválido");
+            if (quantidade <= 0) throw new ArgumentOutOfRangeException("A quantidade deve ser maior que 0");
+            if (precoCobrado <= 0) throw new ArgumentOutOfRangeException("O preço cobrado deve ser maior que 0");
+
+
+            this.produtoId = produtoId;
+            this.quantidade = quantidade;
+            this.precoCobrado = precoCobrado;
+        }
+
+        // Construtor completo (chamado ao ler da base de dados)
+        public ItemCompra(int id, int compraId, int produtoId, int quantidade, decimal precoCobrado)
+            :this(produtoId, quantidade, precoCobrado)
+        {
+            if (id <= 0) throw new ArgumentOutOfRangeException("Id do item é inválido");
+            if (compraId <= 0) throw new ArgumentOutOfRangeException("Id da compra inválido");
+
+            this.id = id;
+            this.compraId = compraId;
+        }
+
+        public decimal CalcularSubtotal()
+        {
+            return this.quantidade * this.precoCobrado;
+        }
+
+        public static int Inserir(ItemCompra item)
+        {
+            using (var cmd = new MySqlCommand("sp_InserirItemCompra"))
+            {
+                // Configura o comando como StoredProcedure
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("p_CompraID", item.compraId);
+                cmd.Parameters.AddWithValue("p_ProdutoID", item.produtoId);
+                cmd.Parameters.AddWithValue("p_Quantidade", item.quantidade);
+                cmd.Parameters.AddWithValue
+
+
+
+
+            }
+
+        }
     }
 }
