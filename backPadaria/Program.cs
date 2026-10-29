@@ -110,7 +110,7 @@ namespace backPadaria
             //    }
 
 
-           
+
 
             //// REFATORAÇÃO //
             //Funcionario funcionario = new Funcionario(
@@ -208,82 +208,82 @@ namespace backPadaria
 
 
 
-            // REFATORAÇÃO //
-           if (resultado > 0)
-                {
-                    Console.WriteLine("Marca cadastrada com sucesso!");
-                }
+            // // REFATORAÇÃO //
+            //if (resultado > 0)
+            //     {
+            //         Console.WriteLine("Marca cadastrada com sucesso!");
+            //     }
 
-            Console.WriteLine("-------------------");
+            // Console.WriteLine("-------------------");
 
-            // Listar Todas as Marcas //
-            List<Marca> marcas = Marca.ListarTodos();
+            // // Listar Todas as Marcas //
+            // List<Marca> marcas = Marca.ListarTodos();
 
-                foreach (Marca marcaLista in marcas)
-                {
-                    Console.WriteLine("-------------------");
+            //     foreach (Marca marcaLista in marcas)
+            //     {
+            //         Console.WriteLine("-------------------");
 
-                    Console.WriteLine($"ID: {marcaLista.Id}");
-                    Console.WriteLine($"Nome: {marcaLista.Nome}");
+            //         Console.WriteLine($"ID: {marcaLista.Id}");
+            //         Console.WriteLine($"Nome: {marcaLista.Nome}");
 
-                    Console.WriteLine($"Telefone: {marcaLista.Telefone}");
-             
-
-                    Console.WriteLine("-------------------");
-                }
-
-            Console.WriteLine("-------------------");
-
-            // Buscar por ID //
-            Marca? marc = Marca.ListarPorId(10);
-
-                if (marc != null)
-                {
-                    Console.WriteLine($"ID: {marc.Id}");
-                    Console.WriteLine($"Nome: {marc.Nome}");
-                    Console.WriteLine($"Telefone: {marc.Telefone}");
-                }
-                else
-                {
-                    Console.WriteLine("Marca não encontrada!");
-                }
-
-            Console.WriteLine("-------------------");
-
-            // Atualizar //
-            marc = Marca.ListarPorId(10);
-
-                if (marc != null)
-                {
-                    marc.Nome = "Nestle";
-
-                    int resultadoAtualizacao = Marca.Atualizar(marc);
-                
-                if (resultadoAtualizacao > 0)
-                {
-                    Console.WriteLine("Marca atualizada com sucesso!");
-                }
-              }
-
-            Console.WriteLine("-------------------");
-
-            // Deletar//
-            Marca marcaParaExcluir = new Marca(10);
-
-            if (Marca.Deletar(marcaParaExcluir) > 0)
-            {
-                Console.WriteLine("Marca excluída com sucesso!");
-            }
-            else
-            {
-                Console.WriteLine("Marca não encontrada!");
-            }
-
-            FuncionarioServices.MenuFuncionario();
+            //         Console.WriteLine($"Telefone: {marcaLista.Telefone}");
 
 
+            //         Console.WriteLine("-------------------");
+            //     }
 
-            //FuncionarioServices.MenuFuncionario();
+            // Console.WriteLine("-------------------");
+
+            // // Buscar por ID //
+            // Marca? marc = Marca.ListarPorId(10);
+
+            //     if (marc != null)
+            //     {
+            //         Console.WriteLine($"ID: {marc.Id}");
+            //         Console.WriteLine($"Nome: {marc.Nome}");
+            //         Console.WriteLine($"Telefone: {marc.Telefone}");
+            //     }
+            //     else
+            //     {
+            //         Console.WriteLine("Marca não encontrada!");
+            //     }
+
+            // Console.WriteLine("-------------------");
+
+            // // Atualizar //
+            // marc = Marca.ListarPorId(10);
+
+            //     if (marc != null)
+            //     {
+            //         marc.Nome = "Nestle";
+
+            //         int resultadoAtualizacao = Marca.Atualizar(marc);
+
+            //     if (resultadoAtualizacao > 0)
+            //     {
+            //         Console.WriteLine("Marca atualizada com sucesso!");
+            //     }
+            //   }
+
+            // Console.WriteLine("-------------------");
+
+            // // Deletar//
+            // Marca marcaParaExcluir = new Marca(10);
+
+            // if (Marca.Deletar(marcaParaExcluir) > 0)
+            // {
+            //     Console.WriteLine("Marca excluída com sucesso!");
+            // }
+            // else
+            // {
+            //     Console.WriteLine("Marca não encontrada!");
+            // }
+
+            LoginFuncionario login = new LoginFuncionario(2, "jp_padoca@padariapaoecia.com.br", "deumaoito", "Diretor");
+
+            LoginFuncionario.Inserir(login);
+
+            LoginService.FazerLoginMenu();
         }
     }
  }

@@ -15,6 +15,14 @@ namespace backPadaria.Model
         private int quantidade;
         private decimal precoCobrado;
 
+        public int Id { get => id; set => id = value; }
+        public int CompraId { get => compraId; set => compraId = value; }
+        public int ProdutoId { get => produtoId; set => produtoId = value; }
+        public int Quantidade { get => quantidade; set => quantidade = value; }
+        public decimal PrecoCobrado { get => precoCobrado; set => precoCobrado = value; }
+
+
+        // Construtor base para validação e criação de um novo item em memória
         public ItemCompra(int produtoId, int quantidade, decimal precoCobrado)
         {
             if (produtoId <= 0) throw new ArgumentOutOfRangeException("Produto Inválido");
@@ -22,9 +30,9 @@ namespace backPadaria.Model
             if (precoCobrado <= 0) throw new ArgumentOutOfRangeException("O preço cobrado deve ser maior que 0");
 
 
-            this.produtoId = produtoId;
-            this.quantidade = quantidade;
-            this.precoCobrado = precoCobrado;
+            this.ProdutoId = produtoId;
+            this.Quantidade = quantidade;
+            this.PrecoCobrado = precoCobrado;
         }
 
         // Construtor completo (chamado ao ler da base de dados)
@@ -34,13 +42,13 @@ namespace backPadaria.Model
             if (id <= 0) throw new ArgumentOutOfRangeException("Id do item é inválido");
             if (compraId <= 0) throw new ArgumentOutOfRangeException("Id da compra inválido");
 
-            this.id = id;
-            this.compraId = compraId;
+            this.Id = id;
+            this.CompraId = compraId;
         }
 
         public decimal CalcularSubtotal()
         {
-            return this.quantidade * this.precoCobrado;
+            return this.Quantidade * this.PrecoCobrado;
         }
 
         public static int Inserir(ItemCompra item)
@@ -50,13 +58,12 @@ namespace backPadaria.Model
                 // Configura o comando como StoredProcedure
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("p_CompraID", item.compraId);
-                cmd.Parameters.AddWithValue("p_ProdutoID", item.produtoId);
-                cmd.Parameters.AddWithValue("p_Quantidade", item.quantidade);
-                cmd.Parameters.AddWithValue
+                cmd.Parameters.AddWithValue("p_CompraID", item.CompraId);
+                cmd.Parameters.AddWithValue("p_ProdutoID", item.ProdutoId);
+                cmd.Parameters.AddWithValue("p_Quantidade", item.Quantidade);
+                cmd.Parameters.AddWithValue("p_PrecoCobrado", item.PrecoCobrado);
 
-
-
+                return Banco.executarComando(cmd);
 
             }
 
